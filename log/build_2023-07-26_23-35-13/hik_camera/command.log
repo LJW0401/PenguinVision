@@ -1,0 +1,6 @@
+Invoking command in '/home/polarbear/DEV/PenguinVision/build/hik_camera': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake /home/polarbear/DEV/PenguinVision/src/ros2_hik_camera -DCMAKE_INSTALL_PREFIX=/home/polarbear/DEV/PenguinVision/install/hik_camera
+Invoked command in '/home/polarbear/DEV/PenguinVision/build/hik_camera' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake /home/polarbear/DEV/PenguinVision/src/ros2_hik_camera -DCMAKE_INSTALL_PREFIX=/home/polarbear/DEV/PenguinVision/install/hik_camera
+Invoking command in '/home/polarbear/DEV/PenguinVision/build/hik_camera': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/polarbear/DEV/PenguinVision/build/hik_camera -- -j8 -l8
+Invoked command in '/home/polarbear/DEV/PenguinVision/build/hik_camera' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/polarbear/DEV/PenguinVision/build/hik_camera -- -j8 -l8
+Invoking command in '/home/polarbear/DEV/PenguinVision/build/hik_camera': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --install /home/polarbear/DEV/PenguinVision/build/hik_camera
+Invoked command in '/home/polarbear/DEV/PenguinVision/build/hik_camera' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --install /home/polarbear/DEV/PenguinVision/build/hik_camera
