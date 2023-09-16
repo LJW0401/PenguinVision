@@ -19,6 +19,9 @@ struct ReceivePacket
   float roll;
   float pitch;
   float yaw;
+  float chassis_roll_delta;//底盘相对于云台的roll旋转量
+  float chassis_pitch_delta;//底盘相对于云台的pitch旋转量
+  float chassis_yaw_delta;//底盘相对于云台的yaw旋转量
   float aim_x;
   float aim_y;
   float aim_z;

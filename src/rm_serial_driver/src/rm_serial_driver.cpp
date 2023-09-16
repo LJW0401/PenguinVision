@@ -39,7 +39,7 @@ RMSerialDriver::RMSerialDriver(const rclcpp::NodeOptions & options)
   // Create Publisher
   latency_pub_ = this->create_publisher<std_msgs::msg::Float64>("/latency", 10);
   marker_pub_ = this->create_publisher<visualization_msgs::msg::Marker>("/aiming_point", 10);
-
+  
   // Detect parameter client
   detector_param_client_ = std::make_shared<rclcpp::AsyncParametersClient>(this, "armor_detector");
 
@@ -111,19 +111,12 @@ void RMSerialDriver::receiveData()
           crc16::Verify_CRC16_Check_Sum(reinterpret_cast<const uint8_t *>(&packet), sizeof(packet));
         if (crc_ok) {
 
-          // RCLCPP_INFO(get_logger(), "CRC OK!");
+          // LOG [Receive] rpy
+          RCLCPP_INFO(get_logger(), "[Receive] roll %f!", packet.roll);
+          RCLCPP_INFO(get_logger(), "[Receive] pitch %f!", packet.pitch);
+          RCLCPP_INFO(get_logger(), "[Receive] yaw %f!", packet.yaw);
 
-          // LOG [Receive] aim_xyz
-          // RCLCPP_INFO(get_logger(), "[Receive] aim_pitch %f!", packet.aim_x);
-          // RCLCPP_INFO(get_logger(), "[Receive] aim_yaw %f!", packet.aim_y);
-          // RCLCPP_INFO(get_logger(), "[Receive] aim_roll %f!", packet.aim_z);
-          
-          // LOG [Receive] [Receive] rpy
-          // RCLCPP_INFO(get_logger(), "[Receive] roll %f!", packet.roll);
-          // RCLCPP_INFO(get_logger(), "[Receive] pitch %f!", packet.pitch);
-          // RCLCPP_INFO(get_logger(), "[Receive] yaw %f!", packet.yaw);
-
-          // RCLCPP_INFO(get_logger(), "----------------------------");
+          RCLCPP_INFO(get_logger(), "----------------------------");
 
           if (!initial_set_param_ || packet.detect_color != previous_receive_color_) {
             setParam(rclcpp::Parameter("detect_color", packet.detect_color));
@@ -133,7 +126,8 @@ void RMSerialDriver::receiveData()
           if (packet.reset_tracker) {
             resetTracker();
           }
-
+          
+          //发布云台相对于odom的变换
           geometry_msgs::msg::TransformStamped t;
           timestamp_offset_ = this->get_parameter("timestamp_offset").as_double();
           t.header.stamp = this->now() + rclcpp::Duration::from_seconds(timestamp_offset_);
@@ -143,6 +137,23 @@ void RMSerialDriver::receiveData()
           q.setRPY(packet.roll, packet.pitch, packet.yaw);
           t.transform.rotation = tf2::toMsg(q);
           tf_broadcaster_->sendTransform(t);
+
+          //发布底盘相对于云台的坐标变换
+          geometry_msgs::msg::TransformStamped t_chassis;
+          t_chassis.header.stamp = this->now() + rclcpp::Duration::from_seconds(timestamp_offset_);
+          t_chassis.header.frame_id = "gimbal_link";
+          t_chassis.child_frame_id = "chassis_link";
+          tf2::Quaternion q_chassis;// 设置变换关系
+          q_chassis.setRPY(
+                  packet.roll+packet.chassis_roll_delta, 
+                  packet.pitch+packet.chassis_pitch_delta, 
+                  packet.yaw+packet.chassis_yaw_delta); // 设置底盘与云台之间的旋转角度
+          t_chassis.transform.rotation = tf2::toMsg(q_chassis);// 设置底盘相对于云台的平移
+          t_chassis.transform.translation.x = 0.0;//云台pitch轴方向上的偏移量
+          t_chassis.transform.translation.y = 0.0;//云台roll轴方向上的偏移量
+          t_chassis.transform.translation.z = -0.2;//云台yaw、pitch轴交点相对于底盘旋转机构的高度
+          t_chassis.transform.rotation = tf2::toMsg(q_chassis);
+          tf_broadcaster_->sendTransform(t_chassis);
 
           if (abs(packet.aim_x) > 0.01) {
             aiming_point_.header.stamp = this->now();
