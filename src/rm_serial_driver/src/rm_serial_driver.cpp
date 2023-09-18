@@ -70,7 +70,7 @@ RMSerialDriver::RMSerialDriver(const rclcpp::NodeOptions & options)
   aiming_point_.lifetime = rclcpp::Duration::from_seconds(0.1);
 
   // Create Subscription
-  target_sub_ = this->create_subscription<auto_aim_interfaces::msg::Target>(
+  target_sub_ = this->create_subscription<interfaces::msg::Target>(
     "/tracker/target", rclcpp::SensorDataQoS(),
     std::bind(&RMSerialDriver::sendData, this, std::placeholders::_1));
 }
@@ -176,7 +176,7 @@ void RMSerialDriver::receiveData()
   }
 }
 
-void RMSerialDriver::sendData(const auto_aim_interfaces::msg::Target::SharedPtr msg)
+void RMSerialDriver::sendData(const interfaces::msg::Target::SharedPtr msg)
 {
   const static std::map<std::string, uint8_t> id_unit8_map{
     {"", 0},  {"outpost", 0}, {"1", 1}, {"1", 1},     {"2", 2},

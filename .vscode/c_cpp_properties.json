@@ -8,7 +8,8 @@
             "includePath": [
                 "/opt/ros/humble/include/**",
                 "/usr/include/**",
-                "${workspaceFolder}/**"
+                "${workspaceFolder}/**",
+                "/home/polarbear/DEV/PenguinVision"
             ],
             "name": "ROS",
             "intelliSenseMode": "gcc-x64",

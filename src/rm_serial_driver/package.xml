@@ -6,11 +6,11 @@
   <name>rm_serial_driver</name>
   <version>0.1.0</version>
   <description>A template for ROS packages.</description>
-  <maintainer email="chen.junn@outlook.com">Chen Jun</maintainer>
+  <maintainer email="1357482552@qq.com">penguin</maintainer>
   <license>MIT</license>
   <url type="website">https://github.com/chenjunnn/ros2_mindvision_camera</url>
   <url type="bugtracker">https://github.com/chenjunnn/ros2_mindvision_camera/issues</url>
-  <author email="chen.junn@outlook.com">Chen Jun</author>
+  <author email="1357482552@qq.com">penguin</author>
 
   <!-- buildtool_depend: dependencies of the build process -->
   <buildtool_depend>ament_cmake</buildtool_depend>
@@ -23,7 +23,7 @@
   <depend>tf2_ros</depend>
   <depend>tf2_geometry_msgs</depend>
   <depend>visualization_msgs</depend>
-  <depend>auto_aim_interfaces</depend>
+  <depend>interfaces</depend>
   <depend>std_srvs</depend>
 
   <test_depend>ament_lint_auto</test_depend>
