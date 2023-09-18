@@ -15,8 +15,8 @@
 
 #include "armor_detector/armor.hpp"
 #include "armor_detector/number_classifier.hpp"
-#include "auto_aim_interfaces/msg/debug_armors.hpp"
-#include "auto_aim_interfaces/msg/debug_lights.hpp"
+#include "interfaces/msg/debug_armors.hpp"
+#include "interfaces/msg/debug_lights.hpp"
 
 namespace rm_auto_aim
 {
@@ -65,8 +65,8 @@ public:
 
   // Debug msgs
   cv::Mat binary_img;
-  auto_aim_interfaces::msg::DebugLights debug_lights;
-  auto_aim_interfaces::msg::DebugArmors debug_armors;
+  interfaces::msg::DebugLights debug_lights;
+  interfaces::msg::DebugArmors debug_armors;
 
 private:
   bool isLight(const Light & possible_light);

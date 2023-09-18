@@ -9,7 +9,8 @@
                 "/opt/ros/humble/include/**",
                 "/usr/include/**",
                 "${workspaceFolder}/**",
-                "/home/polarbear/DEV/PenguinVision"
+                "/home/polarbear/DEV/PenguinVision/src",
+                "${workspaceFolder}/src/armor_detector/include"
             ],
             "name": "ROS",
             "intelliSenseMode": "gcc-x64",

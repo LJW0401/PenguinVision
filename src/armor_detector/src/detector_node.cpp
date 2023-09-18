@@ -35,7 +35,7 @@ ArmorDetectorNode::ArmorDetectorNode(const rclcpp::NodeOptions & options)
   detector_ = initDetector();
 
   // Armors Publisher
-  armors_pub_ = this->create_publisher<auto_aim_interfaces::msg::Armors>(
+  armors_pub_ = this->create_publisher<interfaces::msg::Armors>(
     "/detector/armors", rclcpp::SensorDataQoS());
 
   // Visualization Marker Publisher
@@ -102,7 +102,7 @@ void ArmorDetectorNode::imageCallback(const sensor_msgs::msg::Image::ConstShared
     armor_marker_.id = 0;
     text_marker_.id = 0;
 
-    auto_aim_interfaces::msg::Armor armor_msg;
+    interfaces::msg::Armor armor_msg;
     for (const auto & armor : armors) {
       cv::Mat rvec, tvec;
       bool success = pnp_solver_->solvePnP(armor, rvec, tvec);
@@ -255,9 +255,9 @@ std::vector<Armor> ArmorDetectorNode::detectArmors(
 void ArmorDetectorNode::createDebugPublishers()
 {
   lights_data_pub_ =
-    this->create_publisher<auto_aim_interfaces::msg::DebugLights>("/detector/debug_lights", 10);
+    this->create_publisher<interfaces::msg::DebugLights>("/detector/debug_lights", 10);
   armors_data_pub_ =
-    this->create_publisher<auto_aim_interfaces::msg::DebugArmors>("/detector/debug_armors", 10);
+    this->create_publisher<interfaces::msg::DebugArmors>("/detector/debug_armors", 10);
 
   binary_img_pub_ = image_transport::create_publisher(this, "/detector/binary_img");
   number_img_pub_ = image_transport::create_publisher(this, "/detector/number_img");

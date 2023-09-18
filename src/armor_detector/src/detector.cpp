@@ -14,8 +14,8 @@
 #include <vector>
 
 #include "armor_detector/detector.hpp"
-#include "auto_aim_interfaces/msg/debug_armor.hpp"
-#include "auto_aim_interfaces/msg/debug_light.hpp"
+#include "interfaces/msg/debug_armor.hpp"
+#include "interfaces/msg/debug_light.hpp"
 
 namespace rm_auto_aim
 {
@@ -104,7 +104,7 @@ bool Detector::isLight(const Light & light)
   bool is_light = ratio_ok && angle_ok;
 
   // Fill in debug information
-  auto_aim_interfaces::msg::DebugLight light_data;
+  interfaces::msg::DebugLight light_data;
   light_data.center_x = light.center.x;
   light_data.ratio = ratio;
   light_data.angle = light.tilt_angle;
@@ -191,7 +191,7 @@ ArmorType Detector::isArmor(const Light & light_1, const Light & light_2)
   }
 
   // Fill in debug information
-  auto_aim_interfaces::msg::DebugArmor armor_data;
+  interfaces::msg::DebugArmor armor_data;
   armor_data.type = ARMOR_TYPE_STR[static_cast<int>(type)];
   armor_data.center_x = (light_1.center.x + light_2.center.x) / 2;
   armor_data.light_ratio = light_length_ratio;

@@ -22,7 +22,7 @@
 #include "armor_detector/detector.hpp"
 #include "armor_detector/number_classifier.hpp"
 #include "armor_detector/pnp_solver.hpp"
-#include "auto_aim_interfaces/msg/armors.hpp"
+#include "interfaces/msg/armors.hpp"
 
 namespace rm_auto_aim
 {
@@ -47,8 +47,8 @@ private:
   std::unique_ptr<Detector> detector_;
 
   // Detected armors publisher
-  auto_aim_interfaces::msg::Armors armors_msg_;
-  rclcpp::Publisher<auto_aim_interfaces::msg::Armors>::SharedPtr armors_pub_;
+  interfaces::msg::Armors armors_msg_;
+  rclcpp::Publisher<interfaces::msg::Armors>::SharedPtr armors_pub_;
 
   // Visualization marker publisher
   visualization_msgs::msg::Marker armor_marker_;
@@ -69,8 +69,8 @@ private:
   bool debug_;
   std::shared_ptr<rclcpp::ParameterEventHandler> debug_param_sub_;
   std::shared_ptr<rclcpp::ParameterCallbackHandle> debug_cb_handle_;
-  rclcpp::Publisher<auto_aim_interfaces::msg::DebugLights>::SharedPtr lights_data_pub_;
-  rclcpp::Publisher<auto_aim_interfaces::msg::DebugArmors>::SharedPtr armors_data_pub_;
+  rclcpp::Publisher<interfaces::msg::DebugLights>::SharedPtr lights_data_pub_;
+  rclcpp::Publisher<interfaces::msg::DebugArmors>::SharedPtr armors_data_pub_;
   image_transport::Publisher binary_img_pub_;
   image_transport::Publisher number_img_pub_;
   image_transport::Publisher result_img_pub_;
